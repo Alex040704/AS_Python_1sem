@@ -1,0 +1,33 @@
+import math
+
+class Fraction:
+    def __init__(self, P, Q=1):
+        if Q <= 0:
+            raise ValueError("Q должно быть натуральным числом")
+        g = math.gcd(P, Q)
+        self.P = P // g
+        self.Q = Q // g
+        if self.Q < 0:
+            self.P = -self.P
+            self.Q = -self.Q
+
+    def __add__(self, other):
+        new_P = self.P * other.Q + other.P * self.Q
+        new_Q = self.Q * other.Q
+        return Fraction(new_P, new_Q)
+
+    def __sub__(self, other):
+        new_P = self.P * other.Q - other.P * self.Q
+        new_Q = self.Q * other.Q
+        return Fraction(new_P, new_Q)
+
+    def __mul__(self, other):
+        new_P = self.P * other.P
+        new_Q = self.Q * other.Q
+        return Fraction(new_P, new_Q)
+
+    def __str__(self):
+        return f"{self.P}/{self.Q}"
+
+    def __repr__(self):
+        return f"Fraction({self.P}, {self.Q})"
